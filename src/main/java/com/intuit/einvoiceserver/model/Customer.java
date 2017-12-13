@@ -20,8 +20,8 @@ public class Customer implements Serializable{
 	@NotBlank
     private String email;
     
-    @OneToMany(fetch = FetchType.EAGER,mappedBy="customers",cascade = CascadeType.ALL)
-    private Set<Invoice> invoices;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Invoice> invoices;    
     
     public Long getId() {
 		return id;
@@ -46,7 +46,7 @@ public class Customer implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public Set<Invoice> getInvoices() {
 		return invoices;
 	}
@@ -54,4 +54,5 @@ public class Customer implements Serializable{
 	public void setInvoices(Set<Invoice> invoices) {
 		this.invoices = invoices;
 	}
+	
 }
