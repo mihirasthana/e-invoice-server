@@ -4,7 +4,12 @@ package com.intuit.einvoiceserver.model;
 import org.hibernate.validator.constraints.NotBlank;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -22,13 +27,14 @@ public class Invoice implements Serializable {
     @JoinColumn(name = "cust_id")
     private Customer customer;
 	
-	@NotBlank
+	@NotNull
 	private Double total_amount;
 	
-	@NotBlank
-	private Date dueDate;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@NotNull
+	private Date due_date;
 	
-    @OneToMany(fetch = FetchType.EAGER,mappedBy="line_items",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="invoice", cascade = CascadeType.ALL)
     private Set<LineItem> lineItems;
     
 	public Long getId() {
@@ -47,20 +53,29 @@ public class Invoice implements Serializable {
 		this.customer = customer;
 	}
 
-	public Double getTotalAmount() {
+	public Double getTotal_amount() {
 		return total_amount;
 	}
 
-	public void setTotalAmount(Double total_amount) {
+	public void setTotal_amount(Double total_amount) {
 		this.total_amount = total_amount;
 	}
 
-	public Date getDueDate() {
-		return dueDate;
+	public Date getDue_date() {
+		return due_date;
 	}
 
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
-	}	
+	public void setDue_date(Date due_date) {
+		this.due_date = due_date;
+	}
+
+	public Set<LineItem> getLineItems() {
+		return lineItems;
+	}
+
+	public void setLineItems(Set<LineItem> lineItems) {
+		this.lineItems = lineItems;
+	}
+	
 	
 }
