@@ -3,6 +3,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -19,7 +20,9 @@ public class Customer implements Serializable{
 	@NotBlank
     private String email;
     
-	
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="customers",cascade = CascadeType.ALL)
+    private Set<Invoice> invoices;
+    
     public Long getId() {
 		return id;
 	}
@@ -42,5 +45,13 @@ public class Customer implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Set<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(Set<Invoice> invoices) {
+		this.invoices = invoices;
 	}
 }
