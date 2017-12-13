@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 
 @Entity
@@ -13,17 +15,16 @@ import java.io.Serializable;
 
 public class LineItem implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "invoice_id")
-    private Invoice invoice;
+    @NotNull
+    private Long invoiceId;
 	
 	@NotBlank
 	private String description;
 	
-	@NotBlank
+	@NotNull
 	private Double amount;
 
 	public Long getId() {
@@ -34,12 +35,12 @@ public class LineItem implements Serializable{
 		this.id = id;
 	}
 
-	public Invoice getInvoice() {
-		return invoice;
+	public Long getInvoiceId() {
+		return invoiceId;
 	}
 
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
+	public void setInvoiceId(Long invoiceId) {
+		this.invoiceId = invoiceId;
 	}
 
 	public String getDescription() {

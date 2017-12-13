@@ -11,8 +11,8 @@ import java.util.Set;
 
 public class Customer implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
 
     @NotBlank
     private String name;
@@ -20,14 +20,14 @@ public class Customer implements Serializable{
 	@NotBlank
     private String email;
     
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Invoice> invoices;    
+/*    @OneToMany(targetEntity=Invoice.class, fetch = FetchType.LAZY)
+    private Set<Invoice> invoices;    */
     
-    public Long getId() {
+    public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -47,12 +47,12 @@ public class Customer implements Serializable{
 		this.email = email;
 	}
 
-	public Set<Invoice> getInvoices() {
+/*	public Set<Invoice> getInvoices() {
 		return invoices;
 	}
 
 	public void setInvoices(Set<Invoice> invoices) {
 		this.invoices = invoices;
-	}
+	}*/
 	
 }
