@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String>{
 	//TODO implement limit
-	@Query("select u.name from Customer u where u.name like ?1%")
+	@Query("select distinct u.name from Customer u where u.name like ?1%")
 	  List<String> nameStartsWith(String name);
 }
